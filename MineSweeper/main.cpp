@@ -19,7 +19,7 @@ int boolInt(bool tf)
 	else return 0;
 };
 
-int mineSum(Block*(arXY)[10], int i, int j)
+int mineSum(Block** arXY, int i, int j)
 {
 	if (i == 0 && j == 0)
 	{
@@ -93,7 +93,11 @@ int main(void)
 	bool ifPCMine = false;
 	bool ifAMCleared = false;
 
-	Block arXY[10][10];
+	Block **arXY = new Block*[10];
+	for (int i = 0; i < 10; ++i) 
+	{
+		arXY[i] = new Block[10];
+	}
 
 	bool count = true;
 
@@ -135,7 +139,7 @@ int main(void)
 
 	std::cout << "X 좌표(0~9) Y 좌표(0~9) 마크 종류(0~2)" << std::endl;
 	std::cout << "0: 블록 클릭 / 1: 블록 표시 / 2: 블록 표시 제거" << std::endl;
-	std::cout << "Help 입력시 자동 풀이" << std::endl;
+	//std::cout << "Help 입력시 자동 풀이" << std::endl;
 
 	while (true)
 	{
@@ -145,9 +149,17 @@ int main(void)
 
 		if (playX > 9 || playX < 0 || playY > 9 || playY < 0 || playMark > 2 || playMark < 0)
 		{
-			gotoxy(0, 16);
+			gotoxy(0, 15);
 			std::cout << "		";
-			gotoxy(0, 16);
+			gotoxy(0, 15);
+			continue;
+		}
+
+		if (arXY[playX][playY].blockStatus == 1)
+		{
+			gotoxy(0, 15);
+			std::cout << "		";
+			gotoxy(0, 15);
 			continue;
 		}
 
@@ -159,7 +171,7 @@ int main(void)
 			if (arXY[playX][playY].isMine)
 			{
 				std::cout << "♂" << std::endl;
-				gotoxy(0, 16);
+				gotoxy(0, 15);
 				std::cout << "FAILED" << std::endl;
 				break;
 			}
@@ -181,9 +193,9 @@ int main(void)
 			std::cout << "■" << std::endl;
 			arXY[playX][playY].blockStatus = 0;
 		}
-		gotoxy(0, 16);
+		gotoxy(0, 15);
 		std::cout << "		";
-		gotoxy(0, 16);
+		gotoxy(0, 15);
 
 		for (i = 0; i < 10; i++)
 		{
@@ -203,6 +215,11 @@ int main(void)
 		}
 
 	}
+
+	for (int i = 0; i < 10; ++i) {
+		delete[] arXY[i];
+	}
+	delete[] arXY;
 
 	return 0;
 }
