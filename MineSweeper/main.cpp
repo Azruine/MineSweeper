@@ -19,58 +19,349 @@ int boolInt(bool tf)
 	else return 0;
 };
 
-int mineSum(Block** arXY, int i, int j)
+int mineLocate(Block** arXY, int i, int j)
 {
 	if (i == 0 && j == 0)
 	{
-		return boolInt(arXY[1][0].isMine) + boolInt(arXY[0][1].isMine) + boolInt(arXY[1][1].isMine);
+		return 0;
 	}
 
 	else if (i == 9 && j == 0)
 	{
-		return boolInt(arXY[9][0].isMine) + boolInt(arXY[8][1].isMine) + boolInt(arXY[9][1].isMine);
+		return 1;
 	}
 
 	else if (i == 0 && j == 9)
 	{
-		return boolInt(arXY[1][8].isMine) + boolInt(arXY[0][9].isMine) + boolInt(arXY[1][9].isMine);
+		return 2;
 	}
 
 	else if (i == 9 && j == 9)
 	{
-		return boolInt(arXY[9][8].isMine) + boolInt(arXY[8][9].isMine) + boolInt(arXY[9][9].isMine);
+		return 3;
 	}
 
 	else if (i == 0)
 	{
-		return boolInt(arXY[0][j - 1].isMine) + boolInt(arXY[0][j + 1].isMine) + boolInt(arXY[1][j - 1].isMine) + boolInt(arXY[1][j].isMine) + boolInt(arXY[1][j + 1].isMine);
+		return 4;
 	}
 
 	else if (i == 9)
 	{
-		return boolInt(arXY[9][j - 1].isMine) + boolInt(arXY[9][j + 1].isMine) + boolInt(arXY[8][j - 1].isMine) + boolInt(arXY[8][j].isMine) + boolInt(arXY[8][j + 1].isMine);
+		return 5;
 	}
 
 	else if (j == 0)
 	{
-		return boolInt(arXY[i - 1][0].isMine) + boolInt(arXY[i + 1][0].isMine) + boolInt(arXY[i - 1][1].isMine) + boolInt(arXY[i][1].isMine) + boolInt(arXY[i + 1][1].isMine);
+		return 6;
 	}
 
 	else if (j == 9)
 	{
-		return boolInt(arXY[i - 1][9].isMine) + boolInt(arXY[i + 1][9].isMine) + boolInt(arXY[i - 1][8].isMine) + boolInt(arXY[i][8].isMine) + boolInt(arXY[i + 1][8].isMine);
+		return 7;
 	}
 	else
 	{
-		return boolInt(arXY[i - 1][j - 1].isMine) + boolInt(arXY[i][j - 1].isMine) + boolInt(arXY[i + 1][j - 1].isMine) + boolInt(arXY[i + 1][j].isMine) + boolInt(arXY[i - 1][j + 1].isMine) + boolInt(arXY[i][j + 1].isMine) + boolInt(arXY[i + 1][j + 1].isMine) + boolInt(arXY[i - 1][j].isMine);
+		return 8;
 	}
 }
 
+int mineSum(Block** arXY, int i, int j)
+{
+	switch (mineLocate(arXY, i, j))
+	{
+	default: return -1;
+
+	case 0:return boolInt(arXY[1][0].isMine) + boolInt(arXY[0][1].isMine) + boolInt(arXY[1][1].isMine);
+
+	case 1:return boolInt(arXY[9][0].isMine) + boolInt(arXY[8][1].isMine) + boolInt(arXY[9][1].isMine);
+
+	case 2:return boolInt(arXY[1][8].isMine) + boolInt(arXY[0][9].isMine) + boolInt(arXY[1][9].isMine);
+
+	case 3:return boolInt(arXY[9][8].isMine) + boolInt(arXY[8][9].isMine) + boolInt(arXY[9][9].isMine);
+
+	case 4:return boolInt(arXY[0][j - 1].isMine) + boolInt(arXY[0][j + 1].isMine) + boolInt(arXY[1][j - 1].isMine) + boolInt(arXY[1][j].isMine) + boolInt(arXY[1][j + 1].isMine);
+
+	case 5:return boolInt(arXY[9][j - 1].isMine) + boolInt(arXY[9][j + 1].isMine) + boolInt(arXY[8][j - 1].isMine) + boolInt(arXY[8][j].isMine) + boolInt(arXY[8][j + 1].isMine);
+
+	case 6:return boolInt(arXY[i - 1][0].isMine) + boolInt(arXY[i + 1][0].isMine) + boolInt(arXY[i - 1][1].isMine) + boolInt(arXY[i][1].isMine) + boolInt(arXY[i + 1][1].isMine);
+
+	case 7:return boolInt(arXY[i - 1][9].isMine) + boolInt(arXY[i + 1][9].isMine) + boolInt(arXY[i - 1][8].isMine) + boolInt(arXY[i][8].isMine) + boolInt(arXY[i + 1][8].isMine);
+
+	case 8:return boolInt(arXY[i - 1][j - 1].isMine) + boolInt(arXY[i][j - 1].isMine) + boolInt(arXY[i + 1][j - 1].isMine) + boolInt(arXY[i + 1][j].isMine) + boolInt(arXY[i - 1][j + 1].isMine) + boolInt(arXY[i][j + 1].isMine) + boolInt(arXY[i + 1][j + 1].isMine) + boolInt(arXY[i - 1][j].isMine);		 
+	}
+}
 
 void gotoxy(int x, int y)
 {
 	COORD pos = { x, y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
+
+void gotomineLocate(int x, int y)
+{
+	COORD pos = { (x + 1) * 2, y + 1 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
+
+void nearbyBlockIsMineSunFunc(Block** arXY, int i, int j)
+{
+	gotomineLocate(i, j);
+	std::cout << "□";
+	nearbyBlockIsMine(arXY, i, j);
+	return;
+}
+
+void nearbyBlockIsMine(Block** arXY, int i, int j)
+{
+	switch (mineLocate(arXY, i, j))
+	{
+	case 0:
+	{
+			  if (mineSum(arXY, 1, 0) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 1, 0);
+			  }
+
+			  if (mineSum(arXY, 0, 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 0, 1);
+			  }
+
+			  if (mineSum(arXY, 1, 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 1, 1);
+			  }
+
+			  return;
+	}
+
+	case 1:
+	{
+			  if (mineSum(arXY, 9, 0) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 9, 0);
+			  }
+
+			  if (mineSum(arXY, 8, 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 8, 1);
+			  }
+
+			  if (mineSum(arXY, 9, 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 9, 1);
+			  }
+
+			  return;
+	}
+
+	case 2:
+	{
+			  if (mineSum(arXY, 1, 8) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 1, 8);
+			  }
+
+			  if (mineSum(arXY, 0, 9) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 0, 9);
+			  }
+
+			  if (mineSum(arXY, 1, 9) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 1, 9);
+			  }
+
+			  return;
+	}
+
+	case 3:
+	{
+			  if (mineSum(arXY, 9, 8) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 9, 8);
+			  }
+
+			  if (mineSum(arXY, 8, 9) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 8, 9);
+			  }
+
+			  if (mineSum(arXY, 9, 9) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 9, 9);
+			  }
+
+			  return;
+	}
+
+	case 4:
+	{
+			  if (mineSum(arXY, 0, j - 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 0, j - 1);
+			  }
+
+			  if (mineSum(arXY, 0, j + 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 0, j + 1);
+			  }
+
+			  if (mineSum(arXY, 1, j - 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 1, j - 1);
+			  }
+
+			  if (mineSum(arXY, 1, j) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 1, j);
+			  }
+
+			  if (mineSum(arXY, 1, j + 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 1, j + 1);
+			  }
+
+			  return;
+	}
+
+	case 5:
+	{
+			  if (mineSum(arXY, 9, j - 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 9, j - 1);
+			  }
+
+			  if (mineSum(arXY, 9, j + 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 9, j + 1);
+			  }
+
+			  if (mineSum(arXY, 8, j - 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 8, j - 1);
+			  }
+
+			  if (mineSum(arXY, 8, j) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 8, j);
+			  }
+
+			  if (mineSum(arXY, 8, j + 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, 8, j + 1);
+			  }
+
+			  return;
+	}
+
+	case 6:
+	{
+			  if (mineSum(arXY, i - 1, 0) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i - 1, 0);
+			  }
+
+			  if (mineSum(arXY, i + 1, 0) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i + 1, 0);
+			  }
+
+			  if (mineSum(arXY, i - 1, 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i - 1, 1);
+			  }
+
+			  if (mineSum(arXY, i, 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i, 1);
+			  }
+
+			  if (mineSum(arXY, i + 1, 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i + 1, 1);
+			  }
+
+			  return;
+	}
+
+	case 7:
+	{
+			  if (mineSum(arXY, i + 1, 9) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i + 1, 9);
+			  }
+
+			  if (mineSum(arXY, i - 1, 9) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i - 1, 9);
+			  }
+
+			  if (mineSum(arXY, i + 1, 8) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i + 1, 8);
+			  }
+
+			  if (mineSum(arXY, i, 8) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i, 8);
+			  }
+
+			  if (mineSum(arXY, i - 1, 8) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i - 1, 8);
+			  }
+
+			  return;
+	}
+
+	case 8:
+	{
+			  if (mineSum(arXY, i - 1, j - 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i - 1, j - 1);
+			  }
+
+			  if (mineSum(arXY, i, j - 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i, j - 1);
+			  }
+
+			  if (mineSum(arXY, i + 1, j - 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i + 1, j - 1);
+			  }
+
+			  if (mineSum(arXY, i - 1, j) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i - 1, j);
+			  }
+
+			  if (mineSum(arXY, i + 1, j) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i + 1, j);
+			  }
+
+			  if (mineSum(arXY, i - 1, j + 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i - 1, j + 1);
+			  }
+
+			  if (mineSum(arXY, i, j + 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i, j + 1);
+			  }
+
+			  if (mineSum(arXY, i + 1, j + 1) == 0)
+			  {
+				  nearbyBlockIsMineSunFunc(arXY, i + 1, j + 1);
+			  }
+
+			  return;
+	}
+	}
+
 }
 
 void setcolor(int color, int bgcolor)
@@ -90,6 +381,7 @@ int main(void)
 	int sumMine = 0;
 	int playX = 0, playY = 0, playMark = 0;
 	int sum = 0;
+	int mineCount = 20;
 	bool ifPCMine = false;
 	bool ifAMCleared = false;
 
@@ -103,11 +395,11 @@ int main(void)
 
 
 
-	while (sumMine <= 20)		//지뢰 생성
+	while (sumMine <= mineCount)		//지뢰 생성
 	{
 		locat = rand() % 100;
 
-		if (arXY[locat % 10][(int)(locat / 10)].isMine)
+		if (arXY[locat % 10][locat / 10].isMine)
 		{
 			continue;
 		}
@@ -130,7 +422,7 @@ int main(void)
 
 	for (i = 0; i < 10; i++)
 	{
-		gotoxy(2, i + 1);
+		gotomineLocate(0, i);
 		std::cout << "■■■■■■■■■■";
 
 	}
@@ -163,7 +455,7 @@ int main(void)
 			continue;
 		}
 
-		gotoxy((playX + 1) * 2, playY + 1);
+		gotomineLocate(playX, playY);
 
 		if (playMark == 0)
 		{
@@ -177,8 +469,17 @@ int main(void)
 			}
 			else
 			{
-				std::cout << mineSum(arXY, playX, playY) << " " << std::endl;
-				arXY[playX][playY].blockStatus = 1;
+				if (mineSum(arXY, playX, playY) != 0)
+				{
+					std::cout << mineSum(arXY, playX, playY) << " " << std::endl;
+					arXY[playX][playY].blockStatus = 1;
+				}
+
+				else
+				{
+					std::cout << "□" << std::endl;
+					nearbyBlockIsMine(arXY, playX, playY);
+				}
 			}
 		}
 
@@ -208,15 +509,21 @@ int main(void)
 			}
 		}
 
-		if (sum == 80)
+		if (sum == (100 - mineCount))
 		{
 			std::cout << "Cleared!" << std::endl;
 			break;
 		}
 
+		else
+		{
+			sum = 0;
+		}
+
 	}
 
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 10; ++i)	//메모리 반환
+	{
 		delete[] arXY[i];
 	}
 	delete[] arXY;
