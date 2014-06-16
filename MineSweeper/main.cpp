@@ -92,17 +92,13 @@ int mineSum(Block** arXY, int i, int j)
 	}
 }
 
-void gotoxy(int x, int y)
-{
-	COORD pos = { x, y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-}
-
 void gotomineLocate(int x, int y)
 {
 	COORD pos = { (x + 1) * 2, y + 1 };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
+
+void nearbyBlockIsMine(Block** arXY, int i, int j);
 
 void nearbyBlockIsMineSunFunc(Block** arXY, int i, int j)
 {
@@ -114,254 +110,270 @@ void nearbyBlockIsMineSunFunc(Block** arXY, int i, int j)
 
 void nearbyBlockIsMine(Block** arXY, int i, int j)
 {
-	switch (mineLocate(arXY, i, j))
+	if (arXY[i][j].blockStatus == 1)
 	{
-	case 0:
+		return;
+	}
+	
+	else
 	{
-			  if (mineSum(arXY, 1, 0) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 1, 0);
-			  }
+		arXY[i][j].blockStatus = 1;
 
-			  if (mineSum(arXY, 0, 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 0, 1);
-			  }
+		switch (mineLocate(arXY, i, j))
+		{
+		case 0:
+		{
+				  if (mineSum(arXY, 1, 0) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 1, 0);
+				  }
 
-			  if (mineSum(arXY, 1, 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 1, 1);
-			  }
+				  if (mineSum(arXY, 0, 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 0, 1);
+				  }
 
-			  return;
+				  if (mineSum(arXY, 1, 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 1, 1);
+				  }
+
+				  return;
+		}
+
+		case 1:
+		{
+				  if (mineSum(arXY, 9, 0) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 9, 0);
+				  }
+
+				  if (mineSum(arXY, 8, 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 8, 1);
+				  }
+
+				  if (mineSum(arXY, 9, 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 9, 1);
+				  }
+
+				  return;
+		}
+
+		case 2:
+		{
+				  if (mineSum(arXY, 1, 8) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 1, 8);
+				  }
+
+				  if (mineSum(arXY, 0, 9) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 0, 9);
+				  }
+
+				  if (mineSum(arXY, 1, 9) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 1, 9);
+				  }
+
+				  return;
+		}
+
+		case 3:
+		{
+				  if (mineSum(arXY, 9, 8) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 9, 8);
+				  }
+
+				  if (mineSum(arXY, 8, 9) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 8, 9);
+				  }
+
+				  if (mineSum(arXY, 9, 9) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 9, 9);
+				  }
+
+				  return;
+		}
+
+		case 4:
+		{
+				  if (mineSum(arXY, 0, j - 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 0, j - 1);
+				  }
+
+				  if (mineSum(arXY, 0, j + 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 0, j + 1);
+				  }
+
+				  if (mineSum(arXY, 1, j - 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 1, j - 1);
+				  }
+
+				  if (mineSum(arXY, 1, j) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 1, j);
+				  }
+
+				  if (mineSum(arXY, 1, j + 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 1, j + 1);
+				  }
+
+				  return;
+		}
+
+		case 5:
+		{
+				  if (mineSum(arXY, 9, j - 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 9, j - 1);
+				  }
+
+				  if (mineSum(arXY, 9, j + 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 9, j + 1);
+				  }
+
+				  if (mineSum(arXY, 8, j - 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 8, j - 1);
+				  }
+
+				  if (mineSum(arXY, 8, j) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 8, j);
+				  }
+
+				  if (mineSum(arXY, 8, j + 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, 8, j + 1);
+				  }
+
+				  return;
+		}
+
+		case 6:
+		{
+				  if (mineSum(arXY, i - 1, 0) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i - 1, 0);
+				  }
+
+				  if (mineSum(arXY, i + 1, 0) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i + 1, 0);
+				  }
+
+				  if (mineSum(arXY, i - 1, 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i - 1, 1);
+				  }
+
+				  if (mineSum(arXY, i, 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i, 1);
+				  }
+
+				  if (mineSum(arXY, i + 1, 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i + 1, 1);
+				  }
+
+				  return;
+		}
+
+		case 7:
+		{
+				  if (mineSum(arXY, i + 1, 9) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i + 1, 9);
+				  }
+
+				  if (mineSum(arXY, i - 1, 9) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i - 1, 9);
+				  }
+
+				  if (mineSum(arXY, i + 1, 8) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i + 1, 8);
+				  }
+
+				  if (mineSum(arXY, i, 8) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i, 8);
+				  }
+
+				  if (mineSum(arXY, i - 1, 8) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i - 1, 8);
+				  }
+
+				  return;
+		}
+
+		case 8:
+		{
+				  if (mineSum(arXY, i - 1, j - 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i - 1, j - 1);
+				  }
+
+				  if (mineSum(arXY, i, j - 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i, j - 1);
+				  }
+
+				  if (mineSum(arXY, i + 1, j - 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i + 1, j - 1);
+				  }
+
+				  if (mineSum(arXY, i - 1, j) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i - 1, j);
+				  }
+
+				  if (mineSum(arXY, i + 1, j) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i + 1, j);
+				  }
+
+				  if (mineSum(arXY, i - 1, j + 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i - 1, j + 1);
+				  }
+
+				  if (mineSum(arXY, i, j + 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i, j + 1);
+				  }
+
+				  if (mineSum(arXY, i + 1, j + 1) == 0)
+				  {
+					  nearbyBlockIsMineSunFunc(arXY, i + 1, j + 1);
+				  }
+
+				  return;
+		}
+		}
 	}
 
-	case 1:
-	{
-			  if (mineSum(arXY, 9, 0) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 9, 0);
-			  }
+}
 
-			  if (mineSum(arXY, 8, 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 8, 1);
-			  }
-
-			  if (mineSum(arXY, 9, 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 9, 1);
-			  }
-
-			  return;
-	}
-
-	case 2:
-	{
-			  if (mineSum(arXY, 1, 8) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 1, 8);
-			  }
-
-			  if (mineSum(arXY, 0, 9) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 0, 9);
-			  }
-
-			  if (mineSum(arXY, 1, 9) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 1, 9);
-			  }
-
-			  return;
-	}
-
-	case 3:
-	{
-			  if (mineSum(arXY, 9, 8) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 9, 8);
-			  }
-
-			  if (mineSum(arXY, 8, 9) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 8, 9);
-			  }
-
-			  if (mineSum(arXY, 9, 9) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 9, 9);
-			  }
-
-			  return;
-	}
-
-	case 4:
-	{
-			  if (mineSum(arXY, 0, j - 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 0, j - 1);
-			  }
-
-			  if (mineSum(arXY, 0, j + 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 0, j + 1);
-			  }
-
-			  if (mineSum(arXY, 1, j - 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 1, j - 1);
-			  }
-
-			  if (mineSum(arXY, 1, j) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 1, j);
-			  }
-
-			  if (mineSum(arXY, 1, j + 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 1, j + 1);
-			  }
-
-			  return;
-	}
-
-	case 5:
-	{
-			  if (mineSum(arXY, 9, j - 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 9, j - 1);
-			  }
-
-			  if (mineSum(arXY, 9, j + 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 9, j + 1);
-			  }
-
-			  if (mineSum(arXY, 8, j - 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 8, j - 1);
-			  }
-
-			  if (mineSum(arXY, 8, j) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 8, j);
-			  }
-
-			  if (mineSum(arXY, 8, j + 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, 8, j + 1);
-			  }
-
-			  return;
-	}
-
-	case 6:
-	{
-			  if (mineSum(arXY, i - 1, 0) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i - 1, 0);
-			  }
-
-			  if (mineSum(arXY, i + 1, 0) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i + 1, 0);
-			  }
-
-			  if (mineSum(arXY, i - 1, 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i - 1, 1);
-			  }
-
-			  if (mineSum(arXY, i, 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i, 1);
-			  }
-
-			  if (mineSum(arXY, i + 1, 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i + 1, 1);
-			  }
-
-			  return;
-	}
-
-	case 7:
-	{
-			  if (mineSum(arXY, i + 1, 9) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i + 1, 9);
-			  }
-
-			  if (mineSum(arXY, i - 1, 9) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i - 1, 9);
-			  }
-
-			  if (mineSum(arXY, i + 1, 8) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i + 1, 8);
-			  }
-
-			  if (mineSum(arXY, i, 8) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i, 8);
-			  }
-
-			  if (mineSum(arXY, i - 1, 8) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i - 1, 8);
-			  }
-
-			  return;
-	}
-
-	case 8:
-	{
-			  if (mineSum(arXY, i - 1, j - 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i - 1, j - 1);
-			  }
-
-			  if (mineSum(arXY, i, j - 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i, j - 1);
-			  }
-
-			  if (mineSum(arXY, i + 1, j - 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i + 1, j - 1);
-			  }
-
-			  if (mineSum(arXY, i - 1, j) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i - 1, j);
-			  }
-
-			  if (mineSum(arXY, i + 1, j) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i + 1, j);
-			  }
-
-			  if (mineSum(arXY, i - 1, j + 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i - 1, j + 1);
-			  }
-
-			  if (mineSum(arXY, i, j + 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i, j + 1);
-			  }
-
-			  if (mineSum(arXY, i + 1, j + 1) == 0)
-			  {
-				  nearbyBlockIsMineSunFunc(arXY, i + 1, j + 1);
-			  }
-
-			  return;
-	}
-	}
-
+void gotoxy(int x, int y)
+{
+	COORD pos = { x, y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
 void setcolor(int color, int bgcolor)
@@ -381,7 +393,7 @@ int main(void)
 	int sumMine = 0;
 	int playX = 0, playY = 0, playMark = 0;
 	int sum = 0;
-	int mineCount = 20;
+	int mineCount = 1;
 	bool ifPCMine = false;
 	bool ifAMCleared = false;
 
@@ -395,7 +407,7 @@ int main(void)
 
 
 
-	while (sumMine <= mineCount)		//瘤汾 积己
+	while (sumMine < mineCount)		//瘤汾 积己
 	{
 		locat = rand() % 100;
 
@@ -469,7 +481,7 @@ int main(void)
 			}
 			else
 			{
-				if (mineSum(arXY, playX, playY) != 0)
+				if (mineSum(arXY, playX, playY) > 0)
 				{
 					std::cout << mineSum(arXY, playX, playY) << " " << std::endl;
 					arXY[playX][playY].blockStatus = 1;
