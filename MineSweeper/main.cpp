@@ -13,7 +13,7 @@
 #define A 65
 #define S 83
 #define D 68
-#define a 122
+#define a 97
 #define s 115
 #define d 100
 
@@ -449,7 +449,10 @@ int main(void)
 
 	gotomineLocate(0, 0);
 
-	while ((kb = getKey()) != ESC)
+	playX = 0;
+	playY = 0;
+
+	while (true)
 	{
 		//std::cin >> playX;
 		//std::cin >> playY;
@@ -457,79 +460,254 @@ int main(void)
 
 		kb = getKey();
 
-		playX = SBInfo.dwCursorPosition.X / 2 - 1;
-		playY = SBInfo.dwCursorPosition.Y - 1;
+		
 
 		if (kb == UP || kb == DOWN || kb == LEFT || kb == RIGHT)
 		{
-			if (playX > 0 || playX < sizeX - 1 || playY > 0 || playY < sizeY - 1)
+			switch (mineLocate(arXY, playX, playY, sizeX, sizeY))
 			{
-				switch (kb)
-				{
-				case UP: gotoxy(SBInfo.dwCursorPosition.X, SBInfo.dwCursorPosition.Y - 1);
+			case 0:
+			{
+					  switch (kb)
+					  {
+					  case UP:
+						  gotomineLocate(playX, sizeY - 1);
+						  playY = sizeY - 1;
+						  break;
 
-				case DOWN: gotoxy(SBInfo.dwCursorPosition.X, SBInfo.dwCursorPosition.Y + 1);
+					  case DOWN:
+						  gotomineLocate(playX, playY + 1);
+						  playY += 1;
+						  break;
 
-				case LEFT: gotoxy(SBInfo.dwCursorPosition.X - 2, SBInfo.dwCursorPosition.Y);
+					  case LEFT:
+						  gotomineLocate(sizeX - 1, playY);
+						  playX = sizeX - 1;
+						  break;
 
-				case RIGHT: gotoxy(SBInfo.dwCursorPosition.X + 2, SBInfo.dwCursorPosition.Y);
-				}
+					  case RIGHT:
+						  gotomineLocate(playX + 1, playY);
+						  playX += 1;
+						  break;
+					  }
+					  break;
 			}
 
-			else if (SBInfo.dwCursorPosition.X = 2)
+			case 1:
 			{
-				switch (kb)
-				{
-				case UP: gotoxy(SBInfo.dwCursorPosition.X, SBInfo.dwCursorPosition.Y - 1);
+					  switch (kb)
+					  {
+					  case UP:
+						  gotomineLocate(playX, sizeY - 1);
+						  playY = sizeY - 1;
+						  break;
 
-				case DOWN: gotoxy(SBInfo.dwCursorPosition.X, SBInfo.dwCursorPosition.Y + 1);
+					  case DOWN:
+						  gotomineLocate(playX, playY + 1);
+						  playY += 1;
+						  break;
 
-				case LEFT: gotoxy((sizeX * 2), SBInfo.dwCursorPosition.Y);
+					  case LEFT:
+						  gotomineLocate(playX - 1, playY);
+						  playX -= 1;
+						  break;
 
-				case RIGHT: gotoxy(SBInfo.dwCursorPosition.X + 2, SBInfo.dwCursorPosition.Y);
-				}
+					  case RIGHT:
+						  gotomineLocate(0, playY);
+						  playX = 0;
+						  break;
+					  }
+					  break;
 			}
 
-			else if (SBInfo.dwCursorPosition.X = (sizeX * 2))
+			case 2:
 			{
-				switch (kb)
-				{
-				case UP: gotoxy(SBInfo.dwCursorPosition.X, SBInfo.dwCursorPosition.Y - 1);
+					  switch (kb)
+					  {
+					  case UP:
+						  gotomineLocate(playX, playY - 1);
+						  playY -= 1;
+						  break;
 
-				case DOWN: gotoxy(SBInfo.dwCursorPosition.X, SBInfo.dwCursorPosition.Y + 1);
+					  case DOWN:
+						  gotomineLocate(playX, 0);
+						  playY = 0;
+						  break;
 
-				case LEFT: gotoxy(SBInfo.dwCursorPosition.X - 2, SBInfo.dwCursorPosition.Y);
+					  case LEFT:
+						  gotomineLocate(sizeX - 1, playY);
+						  playX = sizeX - 1;
+						  break;
 
-				case RIGHT: gotoxy(2, SBInfo.dwCursorPosition.Y);
-				}
+					  case RIGHT:
+						  gotomineLocate(playX + 1, playY);
+						  playX += 1;
+						  break;
+					  }
+					  break;
 			}
 
-			else if (SBInfo.dwCursorPosition.Y = 1)
+			case 3:
 			{
-				switch (kb)
-				{
-				case UP: gotoxy(SBInfo.dwCursorPosition.X, sizeY);
+					  switch (kb)
+					  {
+					  case UP:
+						  gotomineLocate(playX, playY - 1);
+						  playY -= 1;
+						  break;
 
-				case DOWN: gotoxy(SBInfo.dwCursorPosition.X, SBInfo.dwCursorPosition.Y + 1);
+					  case DOWN:
+						  gotomineLocate(playX, 0);
+						  playY = 0;
+						  break;
 
-				case LEFT: gotoxy((sizeX * 2), SBInfo.dwCursorPosition.Y);
+					  case LEFT:
+						  gotomineLocate(playX - 1, playY);
+						  playX -= 1;
+						  break;
 
-				case RIGHT: gotoxy(SBInfo.dwCursorPosition.X + 2, SBInfo.dwCursorPosition.Y);
-				}
+					  case RIGHT:
+						  gotomineLocate(0, playY);
+						  playX = 0;
+						  break;
+					  }
+					  break;
 			}
 
-			else if (SBInfo.dwCursorPosition.Y = sizeY)
+			case 4:
 			{
-				switch (kb)
-				{
-				case UP: gotoxy(SBInfo.dwCursorPosition.X, SBInfo.dwCursorPosition.Y - 1);
+					  switch (kb)
+					  {
+					  case UP:
+						  gotomineLocate(playX, playY - 1);
+						  playY -= 1;
+						  break;
 
-				case DOWN: gotoxy(SBInfo.dwCursorPosition.X, 1);
+					  case DOWN:
+						  gotomineLocate(playX, playY + 1);
+						  playY += 1;
+						  break;
 
-				case LEFT: gotoxy((sizeX * 2), SBInfo.dwCursorPosition.Y);
+					  case LEFT:
+						  gotomineLocate(sizeX - 1, playY);
+						  playX = sizeX - 1;
+						  break;
 
-				case RIGHT: gotoxy(SBInfo.dwCursorPosition.X + 2, SBInfo.dwCursorPosition.Y);
-				}
+					  case RIGHT:
+						  gotomineLocate(playX + 1, playY);
+						  playX += 1;
+						  break;
+					  }
+					  break;
+			}
+
+			case 5:
+			{
+					  switch (kb)
+					  {
+					  case UP:
+						  gotomineLocate(playX, playY - 1);
+						  playY -= 1;
+						  break;
+
+					  case DOWN:
+						  gotomineLocate(playX, playY + 1);
+						  playY += 1;
+						  break;
+
+					  case LEFT:
+						  gotomineLocate(playX - 1, playY);
+						  playX -= 1;
+						  break;
+
+					  case RIGHT:
+						  gotomineLocate(0, playY);
+						  playX = 0;
+						  break;
+					  }
+					  break;
+			}
+
+			case 6:
+			{
+					  switch (kb)
+					  {
+					  case UP:
+						  gotomineLocate(playX, sizeY - 1);
+						  playY = sizeY - 1;
+						  break;
+
+					  case DOWN:
+						  gotomineLocate(playX, playY + 1);
+						  playY += 1;
+						  break;
+
+					  case LEFT:
+						  gotomineLocate(playX - 1, playY);
+						  playX -= 1;
+						  break;
+
+					  case RIGHT:
+						  gotomineLocate(playX + 1, playY);
+						  playX += 1;
+						  break;
+					  }
+					  break;
+			}
+
+			case 7:
+			{
+					  switch (kb)
+					  {
+					  case UP:
+						  gotomineLocate(playX, playY - 1);
+						  playY -= 1;
+						  break;
+
+					  case DOWN:
+						  gotomineLocate(playX, 0);
+						  playY = 0;
+						  break;
+
+					  case LEFT:
+						  gotomineLocate(playX - 1, playY);
+						  playX -= 1;
+						  break;
+
+					  case RIGHT:
+						  gotomineLocate(playX + 1, playY);
+						  playX += 1;
+						  break;
+					  }
+					  break;
+			}
+
+			case 8:
+			{
+					  switch (kb)
+					  {
+					  case UP:
+						  gotomineLocate(playX, playY - 1);
+						  playY -= 1;
+						  break;
+
+					  case DOWN:
+						  gotomineLocate(playX, playY + 1);
+						  playY += 1;
+						  break;
+
+					  case LEFT:
+						  gotomineLocate(playX - 1, playY);
+						  playX -= 1;
+						  break;
+
+					  case RIGHT:
+						  gotomineLocate(playX + 1, playY);
+						  playX += 1;
+						  break;
+					  }
+					  break;
+			}
 			}
 		}
 
@@ -552,12 +730,14 @@ int main(void)
 					{
 						std::cout << mineSum(arXY, playX, playY, sizeX, sizeY) << " " << std::endl;
 						arXY[playX][playY].blockStatus = Block::clicked;
+						gotomineLocate(playX, playY);
 					}
 
 					else
 					{
 						std::cout << "бр" << std::endl;
 						nearbyBlockIsMine(arXY, playX, playY, sizeX, sizeY);
+						gotomineLocate(playX, playY);
 					}
 				}
 			}
@@ -567,13 +747,21 @@ int main(void)
 		{
 			std::cout << "б┌" << std::endl;
 			arXY[playX][playY].blockStatus = 2;
+			gotomineLocate(playX, playY);
 		}
 
 		else if (kb == D || kb ==d)
 		{
 			std::cout << "бс" << std::endl;
 			arXY[playX][playY].blockStatus = 0;
+			gotomineLocate(playX, playY);
 		}
+
+		else if (kb == ESC)
+		{
+			break;
+		}
+
 	
 		for (i = 0; i < sizeX; i++)
 		{
