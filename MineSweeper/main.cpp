@@ -132,6 +132,7 @@ void nearbyBlockIsMineSunFuncZero(Block** arXY, int i, int j, int x, int y)		//�
 void nearbyBlockIsMineSunFuncNotZero(Block** arXY, int i, int j, int x, int y)	//주어진 칸에 인접한 지뢰가 0개가 아닐때 호출하는 함수
 {
 	gotomineLocate(i, j);
+	arXY[i][j].blockStatus = Block::clicked;
 	std::cout << mineSum(arXY, i, j, x, y);
 	return;
 }
@@ -389,8 +390,6 @@ int main(void)
 
 	bool count = true;
 
-
-
 	while (sumMine < mineCount)		//지뢰 생성
 	{
 		locat = rand() % (sizeX*sizeY);
@@ -443,8 +442,6 @@ int main(void)
 
 	gotoxy(0, sizeY+3);
 
-	//std::cout << "X 좌표(0부터 시작) Y 좌표(0부터 시작) 마크 종류(0~2)" << std::endl;
-	//std::cout << "0: 블록 클릭 / 1: 블록 표시 / 2: 블록 표시 제거" << std::endl;
 	std::cout << "화살표로 이동 / A : 블록 클릭 / S : 블록 표시 / D : 블록 표시 제거" << std::endl;
 
 	gotomineLocate(0, 0);
@@ -454,13 +451,7 @@ int main(void)
 
 	while (true)
 	{
-		//std::cin >> playX;
-		//std::cin >> playY;
-		//std::cin >> playMark;
-
 		kb = getKey();
-
-		
 
 		if (kb == UP || kb == DOWN || kb == LEFT || kb == RIGHT)
 		{
@@ -763,7 +754,7 @@ int main(void)
 		}
 
 	
-		for (i = 0; i < sizeX; i++)
+		for (i = 0; i < sizeX; i++)			//클릭한 블록수 점검
 		{
 			for (j = 0; j < sizeY; j++)
 			{
@@ -774,8 +765,9 @@ int main(void)
 			}
 		}
 
-		if (sum == (sizeX * sizeY - mineCount))
+		if (sum == (sizeX * sizeY - mineCount))		//클리어
 		{
+			gotoxy(0, sizeY + 5);
 			std::cout << "Cleared!" << std::endl;
 			break;
 		}
