@@ -31,15 +31,6 @@ struct Block
 	};
 };
 
-int boolInt(bool tf)	//불리언 대수에 따른 값 반환. 참일시 1, 거짓일시 0.
-{
-	if (tf)
-	{
-		return 1;
-	}
-	else return 0;
-};
-
 int mineLocate(Block** arXY, int i, int j, int x, int y)	//입력받은 좌표가 어떤 경우인지 값을 반환함. 제일 구석, 변, 내부일때 계산식이 전부 달라지므로 편의를 위해 넣음
 {
 	if (i == 0 && j == 0)
@@ -93,23 +84,23 @@ int mineSum(Block** arXY, int i, int j, int x, int y)		//주변 지뢰의 개수를 반환
 	{
 	default: return -1;
 
-	case 0:return boolInt(arXY[1][0].isMine) + boolInt(arXY[0][1].isMine) + boolInt(arXY[1][1].isMine);
+	case 0:return (arXY[1][0].isMine) + (arXY[0][1].isMine) + (arXY[1][1].isMine);
 
-	case 1:return boolInt(arXY[x-1][0].isMine) + boolInt(arXY[x-2][1].isMine) + boolInt(arXY[x-1][1].isMine);
+	case 1:return (arXY[x-1][0].isMine) + (arXY[x-2][1].isMine) + (arXY[x-1][1].isMine);
 
-	case 2:return boolInt(arXY[1][y-2].isMine) + boolInt(arXY[0][y-1].isMine) + boolInt(arXY[1][y-1].isMine);
+	case 2:return (arXY[1][y-2].isMine) + (arXY[0][y-1].isMine) + (arXY[1][y-1].isMine);
 
-	case 3:return boolInt(arXY[x-1][y-2].isMine) + boolInt(arXY[x-2][y-1].isMine) + boolInt(arXY[x-1][y-1].isMine);
+	case 3:return (arXY[x-1][y-2].isMine) + (arXY[x-2][y-1].isMine) + (arXY[x-1][y-1].isMine);
 
-	case 4:return boolInt(arXY[0][j - 1].isMine) + boolInt(arXY[0][j + 1].isMine) + boolInt(arXY[1][j - 1].isMine) + boolInt(arXY[1][j].isMine) + boolInt(arXY[1][j + 1].isMine);
+	case 4:return (arXY[0][j - 1].isMine) + (arXY[0][j + 1].isMine) + (arXY[1][j - 1].isMine) + (arXY[1][j].isMine) + (arXY[1][j + 1].isMine);
 
-	case 5:return boolInt(arXY[x-1][j - 1].isMine) + boolInt(arXY[x-1][j + 1].isMine) + boolInt(arXY[x-2][j - 1].isMine) + boolInt(arXY[x-2][j].isMine) + boolInt(arXY[x-2][j + 1].isMine);
+	case 5:return (arXY[x-1][j - 1].isMine) + (arXY[x-1][j + 1].isMine) + (arXY[x-2][j - 1].isMine) + (arXY[x-2][j].isMine) + (arXY[x-2][j + 1].isMine);
 
-	case 6:return boolInt(arXY[i - 1][0].isMine) + boolInt(arXY[i + 1][0].isMine) + boolInt(arXY[i - 1][1].isMine) + boolInt(arXY[i][1].isMine) + boolInt(arXY[i + 1][1].isMine);
+	case 6:return (arXY[i - 1][0].isMine) + (arXY[i + 1][0].isMine) + (arXY[i - 1][1].isMine) + (arXY[i][1].isMine) + (arXY[i + 1][1].isMine);
 
-	case 7:return boolInt(arXY[i - 1][y-1].isMine) + boolInt(arXY[i + 1][y-1].isMine) + boolInt(arXY[i - 1][y-2].isMine) + boolInt(arXY[i][y-2].isMine) + boolInt(arXY[i + 1][y-2].isMine);
+	case 7:return (arXY[i - 1][y-1].isMine) + (arXY[i + 1][y-1].isMine) + (arXY[i - 1][y-2].isMine) + (arXY[i][y-2].isMine) + (arXY[i + 1][y-2].isMine);
 
-	case 8:return boolInt(arXY[i - 1][j - 1].isMine) + boolInt(arXY[i][j - 1].isMine) + boolInt(arXY[i + 1][j - 1].isMine) + boolInt(arXY[i + 1][j].isMine) + boolInt(arXY[i - 1][j + 1].isMine) + boolInt(arXY[i][j + 1].isMine) + boolInt(arXY[i + 1][j + 1].isMine) + boolInt(arXY[i - 1][j].isMine);		 
+	case 8:return (arXY[i - 1][j - 1].isMine) + (arXY[i][j - 1].isMine) + (arXY[i + 1][j - 1].isMine) + (arXY[i + 1][j].isMine) + (arXY[i - 1][j + 1].isMine) + (arXY[i][j + 1].isMine) + (arXY[i + 1][j + 1].isMine) + (arXY[i - 1][j].isMine);		 
 	}
 }
 
@@ -362,11 +353,7 @@ int main(void)
 
 		if (mineCount < sizeX*sizeY)
 		{
-			gotoxy(0, 0);
-			std::cout << "				" << std::endl;
-			std::cout << "				" << std::endl;
-			std::cout << "				" << std::endl;
-			std::cout << "				" << std::endl;
+			system("cls");
 			gotoxy(0, 0);
 			break;
 		}
